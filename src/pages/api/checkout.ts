@@ -5,7 +5,15 @@ const successUrl = `${process.env.NEXT_URL}/success`
 const cancelUrl = `${process.env.NEXT_URL}`
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const priceId = 'price_1OsoUCFGYx6ZCNRiHIDK3vNG'
+    const { priceId } = req.body
+
+    if (req.method !== 'POST') {
+        return res.status(405)
+    }
+
+    if (!priceId) {
+        return res.status(400).json({ error: 'Price not found' })
+    }
 
     const checkoutSession = await stripe.checkout.sessions.create({
         success_url: successUrl,
@@ -20,6 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
 
     return res.status(201).json({
-        checkouUrl: checkoutSession.url
+        checkoutUrl: checkoutSession.url
     })
 }
