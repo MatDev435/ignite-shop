@@ -5,7 +5,8 @@ export const HomeContainer = styled('main', {
     width: '100%',
     maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
     marginLeft: 'auto',
-    minHeight: '656px'
+    minHeight: '656px',
+    position: 'relative',
 })
 
 export const Product = styled('div', {
@@ -56,5 +57,42 @@ export const Product = styled('div', {
             transform: 'translateY(0%)',
             opacity: 1
         }
+    }
+})
+
+export const ArrowContainer = styled('div', {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    pointerEvents: 'none',
+})
+
+export const Arrow = styled('button', {
+    pointerEvents: 'all',
+    color: '$gray100',
+    height: '100%',
+    border: 0,
+    padding: '1rem',
+    cursor: 'pointer',
+
+    variants: {
+        side: {
+            left: {
+                background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%)',
+            },
+            
+            right: {
+                background: 'linear-gradient(270deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%)',
+
+            }
+        }
+    },
+
+    '&:disabled': {
+        opacity: 0,
+        pointerEvents: 'none'
     }
 })
