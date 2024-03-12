@@ -7,62 +7,45 @@ import Image from "next/image"
 import { CartButton, CloseDialog, Container, DialogContent, DialogOverlay, Header, Item, ItemImageContainer, ItemInfo, ItemsContainer } from "../styles/pages/app"
 import { Bag, X } from "@phosphor-icons/react"
 
+import { CartProvider } from 'use-shopping-cart'
+import { CartContent } from "../components/cart_content"
+
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Container>
-      <Header>
-        <Image src={logoImage} alt="" />
+    <CartProvider
+      mode="payment"
+      cartMode="client-only"
+      stripe={process.env.STRIPE_PUBLIC_KEY}
+      successUrl={`${process.env.NEXT_URL}/success`}
+      cancelUrl={`${process.env.NEXT_URL}/`}
+      currency="BRL"
+      allowedCountries={['BR']}
+      billingAddressCollection={true}
+      shouldPersist={true}
+    >
+      <Container>
+        <Header>
+          <Image src={logoImage} alt="" />
 
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
-            <CartButton>
-              <Bag size={24} />
-            </CartButton>
-          </Dialog.Trigger>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <CartButton>
+                <Bag size={24} />
+              </CartButton>
+            </Dialog.Trigger>
 
-          <Dialog.Portal>
-            <DialogOverlay />
+            <Dialog.Portal>
+              <DialogOverlay />
 
-            <DialogContent>
-              <CloseDialog>
-                <X size={24} />
-              </CloseDialog>
+              <CartContent />
+            </Dialog.Portal>
+          </Dialog.Root>
+        </Header>
 
-              <h1>Sacola de compras</h1>
-
-              <ItemsContainer>
-                <Item>
-                  <ItemImageContainer>
-                    {/* <Image src={} alt="" width={} height={} /> */}
-                  </ItemImageContainer>
-
-                  <ItemInfo>
-                    <span>Camiseta Explorer</span>
-
-                    <strong>R$ 62,90</strong>
-
-                    <button>Remover</button>
-                  </ItemInfo>
-                </Item>
-              </ItemsContainer>
-
-              <footer>
-                <span>Quantidade</span>
-                <span>3 itens</span>
-
-                <strong>Valor total</strong>
-                <strong>R$ 270,00</strong>
-
-                <button>Finalizar compra</button>
-              </footer>
-            </DialogContent>
-          </Dialog.Portal>
-        </Dialog.Root>
-      </Header>
-
-      <Component {...pageProps} />
-    </Container>
+        <Component {...pageProps} />
+      </Container>
+    </CartProvider>
   )
 }
