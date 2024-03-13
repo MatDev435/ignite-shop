@@ -1,5 +1,4 @@
 import { styled } from "..";
-import * as Dialog from '@radix-ui/react-dialog'
 
 export const Container = styled('div', {
     display: 'flex',

@@ -10,36 +10,46 @@ import { Bag, X } from "@phosphor-icons/react"
 import { CartContent } from "../components/cart_content"
 import { Toaster } from 'sonner'
 import { CartProvider } from "../contexts/Cart"
+import { NextComponentType, NextPageContext } from "next"
 
 globalStyles()
 
+interface MyAppProps extends AppProps {
+  Component: NextComponentType<NextPageContext, any, any> & {
+    hideLayout?: boolean
+  }
+}
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: MyAppProps) {
+  const hideLayout = Component.hideLayout || false
+
   return (
     <CartProvider>
       <Toaster richColors closeButton />
 
-      <Container>
-        <Header>
-          <Image src={logoImage} alt="" />
+      {!hideLayout && (
+        <Container>
+          <Header>
+            <Image src={logoImage} alt="" />
 
-          <Dialog.Root>
-            <Dialog.Trigger asChild>
-              <CartButton>
-                <Bag size={24} />
-              </CartButton>
-            </Dialog.Trigger>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <CartButton>
+                  <Bag size={24} />
+                </CartButton>
+              </Dialog.Trigger>
 
-            <Dialog.Portal>
-              <DialogOverlay />
+              <Dialog.Portal>
+                <DialogOverlay />
 
-              <CartContent />
-            </Dialog.Portal>
-          </Dialog.Root>
-        </Header>
+                <CartContent />
+              </Dialog.Portal>
+            </Dialog.Root>
+          </Header>
+        </Container>
+      )}
 
-        <Component {...pageProps} />
-      </Container>
+      <Component {...pageProps} />
     </CartProvider>
   )
 }
