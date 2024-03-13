@@ -4,16 +4,17 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import { stripe } from "../../lib/stripe"
 import Stripe from "stripe"
 import axios from 'axios'
-import { useState } from "react"
 import Head from "next/head"
-import { useShoppingCart } from "use-shopping-cart"
 import { formatPrice } from "../../utils/format_price"
+import { toast } from "sonner"
+import { useContext } from "react"
+import { CartContext } from "../../contexts/Cart"
 
 interface ProductProps {
     product: {
         id: string
         name: string
-        imageUrl; string
+        imageUrl: string
         price: number
         currency: string
         description: string
@@ -22,18 +23,10 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
-    const { addItem } = useShoppingCart()
+    const { addItem } = useContext(CartContext)
 
-    async function handleAddToCart() {
-        addItem({
-            currency: product.currency,
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            description: product.description,
-            image: product.imageUrl
-        })
+    function handleAddToCart() {
+            addItem(product)
     }
 
     return (
@@ -55,7 +48,9 @@ export default function Product({ product }: ProductProps) {
 
                     <p>{product.description}</p>
 
-                    <button onClick={handleAddToCart} disabled={isCreatingCheckoutSession}>
+                    <button
+                        onClick={handleAddToCart}
+                    >
                         Colocar na sacola
                     </button>
                 </ProductDetails>

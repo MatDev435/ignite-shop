@@ -1,21 +1,15 @@
 import { X } from "@phosphor-icons/react";
 import { CloseDialog, DialogContent, Item, ItemImageContainer, ItemInfo, ItemsContainer } from "../styles/components/cart_content";
-import { useShoppingCart } from "use-shopping-cart";
 import Image from "next/image";
 import { formatPrice } from "../utils/format_price";
+import { useContext } from "react";
+import { CartContext } from "../contexts/Cart";
 
 export function CartContent() {
-    const {
-        cartDetails,
-        totalPrice,
-        cartCount,
-        decrementItem
-    } = useShoppingCart()
+    const { items, removeItem, itemsAmount, totalPrice } = useContext(CartContext)
 
     function handleRemoveItem(itemId: string) {
-        decrementItem(itemId, {
-            count: 1
-        })
+        removeItem(itemId)
     }
 
     return (
@@ -27,24 +21,22 @@ export function CartContent() {
             <h1>Sacola de compras</h1>
 
             <ItemsContainer>
-                {Object.keys(cartDetails).map(item => {
-                    const itemInCart = cartDetails[item]
-
-                    return (
-                        <Item key={itemInCart.id}>
+                {items && items.map(item => {
+                return (
+                        <Item key={item.id}>
                             <ItemImageContainer>
-                                <Image src={itemInCart.image} alt="" width={94} height={94} />
+                                <Image src={item.imageUrl} alt="" width={94} height={94} />
                             </ItemImageContainer>
 
                             <ItemInfo>
-                                <span>{itemInCart.name} ({itemInCart.quantity})</span>
+                                <span>{item.name} ({item.amount})</span>
 
                                 <strong>
-                                    {formatPrice(itemInCart.price)}
+                                    {formatPrice(item.price)}
                                 </strong>
 
                                 <button
-                                    onClick={() => handleRemoveItem(itemInCart.id)}
+                                    onClick={() => handleRemoveItem(item.id)}
                                 >
                                     Remover
                                 </button>
@@ -56,14 +48,18 @@ export function CartContent() {
 
             <footer>
                 <span>Quantidade</span>
-                <span>{cartCount} itens</span>
+                <span>{itemsAmount} itens</span>
 
                 <strong>Valor total</strong>
                 <strong>
                     {formatPrice(totalPrice)}
                 </strong>
 
-                <button>Finalizar compra</button>
+                <button
+                    // onClick={handleCheckout}
+                >
+                    Finalizar compra
+                </button>
             </footer>
         </DialogContent>
     )
