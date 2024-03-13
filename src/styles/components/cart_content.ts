@@ -53,7 +53,7 @@ export const DialogContent = styled(Dialog.Content, {
             padding: '1.25rem 0',
             cursor: 'pointer',
 
-            '&:disabeld': {
+            '&:disabled': {
                 opacity: 0.6,
                 cursor: 'not-allowed',
             },

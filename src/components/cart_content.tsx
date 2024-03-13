@@ -2,14 +2,35 @@ import { X } from "@phosphor-icons/react";
 import { CloseDialog, DialogContent, Item, ItemImageContainer, ItemInfo, ItemsContainer } from "../styles/components/cart_content";
 import Image from "next/image";
 import { formatPrice } from "../utils/format_price";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../contexts/Cart";
+import axios from "axios";
+import { toast } from "sonner";
 
 export function CartContent() {
+    const [isCreatingSession, setIsCreatingSession] = useState(false)
     const { items, removeItem, itemsAmount, totalPrice } = useContext(CartContext)
 
     function handleRemoveItem(itemId: string) {
         removeItem(itemId)
+    }
+
+    async function handleCheckout() {
+        try {
+            setIsCreatingSession(true)
+
+            const response = await axios.post('/api/checkout', {
+                items
+            })
+    
+            const { checkoutUrl } = response.data
+    
+            window.location = checkoutUrl
+        } catch (err) {
+            setIsCreatingSession(false)
+
+            toast.error('Falha ao redirecionar para o checkout.')
+        }
     }
 
     return (
@@ -56,7 +77,8 @@ export function CartContent() {
                 </strong>
 
                 <button
-                    // onClick={handleCheckout}
+                    onClick={handleCheckout}
+                    disabled={isCreatingSession}
                 >
                     Finalizar compra
                 </button>

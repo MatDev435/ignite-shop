@@ -3,10 +3,8 @@ import Image from "next/image"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { stripe } from "../../lib/stripe"
 import Stripe from "stripe"
-import axios from 'axios'
 import Head from "next/head"
 import { formatPrice } from "../../utils/format_price"
-import { toast } from "sonner"
 import { useContext } from "react"
 import { CartContext } from "../../contexts/Cart"
 

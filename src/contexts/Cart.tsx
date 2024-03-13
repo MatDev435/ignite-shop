@@ -1,13 +1,13 @@
 import { useState, createContext, ReactNode } from 'react'
 import { toast } from 'sonner'
 
-interface Item {
+export interface Item {
     id: string
     name: string
     imageUrl: string
     price: number
     currency: string
-    amount: number
+    amount?: number
     description: string
     defaultPriceId: string
 }
@@ -27,7 +27,7 @@ interface CartProviderProps {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-    const [items, setItems] = useState<Item[]>([])
+    const [items, setItems] = useState<Item[]>([], )
 
     function addItem(newItem: Item) {
         const itemExists = items.some(item => item.id === newItem.id)
