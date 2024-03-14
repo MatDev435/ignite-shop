@@ -19,23 +19,3 @@ export const Header = styled('header', {
     alignItems: 'center',
 })
 
-export const CartButton = styled('button', {
-    borderRadius: 6,
-    padding: '0.75rem',
-    backgroundColor: '$gray800',
-    color: '$gray300',
-    border: 0,
-    outline: 'none',
-    cursor: 'pointer',
-})
-
-export const DialogOverlay = styled('div', {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    zIndex: 9,
-})
-

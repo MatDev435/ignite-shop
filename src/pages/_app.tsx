@@ -1,13 +1,11 @@
 import { AppProps } from "next/app"
 import { globalStyles } from "../styles/global"
-import * as Dialog from '@radix-ui/react-dialog'
 
 import logoImage from '../assets/logo.svg'
 import Image from "next/image"
-import { CartButton, Container, DialogOverlay, Header } from "../styles/pages/app"
-import { Bag, X } from "@phosphor-icons/react"
+import { Container, Header } from "../styles/pages/app"
 
-import { CartContent } from "../components/cart_content"
+import { CartModal } from "../components/cart_modal"
 import { Toaster } from 'sonner'
 import { CartProvider } from "../contexts/Cart"
 import { NextComponentType, NextPageContext } from "next"
@@ -32,19 +30,7 @@ export default function App({ Component, pageProps }: MyAppProps) {
           <Header>
             <Image src={logoImage} alt="" />
 
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <CartButton>
-                  <Bag size={24} />
-                </CartButton>
-              </Dialog.Trigger>
-
-              <Dialog.Portal>
-                <DialogOverlay />
-
-                <CartContent />
-              </Dialog.Portal>
-            </Dialog.Root>
+            <CartModal />
           </Header>
         )}
 

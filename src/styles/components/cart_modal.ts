@@ -1,6 +1,45 @@
 import { styled } from ".."
 import * as Dialog from '@radix-ui/react-dialog'
 
+export const CartButton = styled('button', {
+    position: 'relative',
+    borderRadius: 6,
+    padding: '0.75rem',
+    backgroundColor: '$gray800',
+    color: '$gray300',
+    border: 0,
+    outline: 'none',
+    cursor: 'pointer',
+
+    span: {
+        position: 'absolute',
+        top: '-0.25rem',
+        right: '-0.25rem',
+
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        color: '$gray100',
+        fontSize: '0.875rem',
+        backgroundColor: '$green300',
+        width: '1.5rem',
+        height: '1.5rem',
+        borderRadius: '100%'
+    }
+})
+
+export const DialogOverlay = styled('div', {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    zIndex: 9,
+})
+
+
 export const DialogContent = styled(Dialog.Content, {
     position: 'absolute',
     top: 0,
