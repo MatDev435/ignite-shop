@@ -27,8 +27,8 @@ export default function App({ Component, pageProps }: MyAppProps) {
     <CartProvider>
       <Toaster richColors closeButton />
 
-      {!hideLayout && (
-        <Container>
+      <Container>
+        {!hideLayout && (
           <Header>
             <Image src={logoImage} alt="" />
 
@@ -46,10 +46,10 @@ export default function App({ Component, pageProps }: MyAppProps) {
               </Dialog.Portal>
             </Dialog.Root>
           </Header>
-        </Container>
-      )}
+        )}
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
+      </Container>
     </CartProvider>
   )
 }

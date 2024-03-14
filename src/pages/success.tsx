@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ImageContainer, ImagesContainer, SuccessContainer } from "../styles/pages/success";
+import { ImageContainer, ImagesContainer, LogoContainer, SuccessContainer } from "../styles/pages/success";
 import { GetServerSideProps } from "next";
 import { stripe } from "../lib/stripe";
 import Stripe from "stripe";
@@ -27,7 +27,9 @@ function Success({ customerName, products }: SuccessProps) {
             </Head>
 
             <SuccessContainer>
-                <Image src={Logo} alt="" width={129} height={52} />
+                <LogoContainer>
+                    <Image src={Logo} alt="" width={129} height={52} />
+                </LogoContainer>
 
                 <ImagesContainer>
                     {products.map((product, i) => {

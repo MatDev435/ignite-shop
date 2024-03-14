@@ -37,6 +37,13 @@ export const SuccessContainer = styled('main', {
     }
 })
 
+export const LogoContainer = styled('div', {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+})
+
 export const ImagesContainer = styled('div', {
     display: 'flex',
     justifyContent: 'center',
@@ -54,6 +61,7 @@ export const ImageContainer = styled('span', {
 
     borderRadius: '100%',
     marginLeft: '-3rem',
+    transform: 'translateX(1.7rem)',
 
     display: 'flex',
     alignItems: 'center',
