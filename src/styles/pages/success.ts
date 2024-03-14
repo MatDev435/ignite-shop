@@ -60,7 +60,7 @@ export const ImageContainer = styled('span', {
     boxShadow: '-10px 0px 40px 0px rgba(0, 0, 0, 0.5)',
 
     borderRadius: '100%',
-    transform: 'translateX(-3rem)',
+    margin: '-1.5rem',
 
     display: 'flex',
     alignItems: 'center',
